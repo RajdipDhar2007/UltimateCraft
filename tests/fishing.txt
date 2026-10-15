@@ -1,0 +1,57 @@
+# Fishing: cast, the bobber floats, a bite, reel in a catch (XP, durability), Lure shortens the wait,
+# snagging the ground costs 2 durability, hooking a mob pulls it (5 durability).
+newworld FishTest 80 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+weather clear
+flatten 8
+fill ~2 ~-3 ~-4 ~9 ~-1 ~4 water
+gamemode survival
+heal
+clear
+give fishing_rod
+select 0
+look 90 -20
+useitem
+wait 60
+check bobber == 2
+check bitewait > 0
+fishbite
+wait 3
+useitem
+wait 60
+check fishcaught == 1
+check helddamage == 1
+check bobber == 0
+# Lure III: the wait is at most 15 s (900 ticks at 60/s)
+enchant @s lure 3
+useitem
+wait 60
+check bobber == 2
+check bitewait <= 900
+useitem
+wait 5
+check helddamage == 1
+# snag the ground
+look 270 -50
+useitem
+wait 60
+check bobber == 4
+useitem
+wait 5
+check helddamage == 3
+# hook a pig and pull it in
+summon pig ~4 ~-1 ~
+look 90 -12
+wait 5
+useitem
+wait 30
+check fishhooked >= 1
+check bobber == 3
+useitem
+wait 5
+check helddamage == 8
+screenshot fishing
+quit

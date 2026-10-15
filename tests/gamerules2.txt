@@ -1,0 +1,116 @@
+# Game rules that now have an effect, and the remaining status effects.
+newworld RulesTest 82 0
+waitready
+killall
+gamerule doMobSpawning false
+difficulty normal
+time set noon
+flatten 8
+gamemode creative
+# doEntityDrops false: a broken frame leaves nothing behind
+fill ~3 ~ ~-2 ~3 ~3 ~2 stone
+gamerule doEntityDrops false
+summon item_frame ~2 ~1 ~
+decorhit item_frame
+wait 5
+check decor item_frame == 0
+check items == 0
+gamerule doEntityDrops true
+# waterSourceConversion false: no infinite water; lavaSourceConversion true: infinite lava
+fill ~-8 ~-1 ~-8 ~-4 ~-1 ~-6 stone
+gamerule waterSourceConversion false
+setblock ~-8 ~ ~-7 water
+setblock ~-6 ~ ~-7 water
+wait 120
+check var ~-7,~,~-7 >= 1
+gamerule lavaSourceConversion true
+fill ~10 ~-1 ~-10 ~14 ~-1 ~-6 stone
+setblock ~10 ~ ~-8 lava
+setblock ~12 ~ ~-8 lava
+wait 400
+check var ~11,~,~-8 == 0
+# doVinesSpread: vines creep down
+fill ~-4 ~ ~3 ~-2 ~6 ~5 stone
+fill ~-3 ~ ~4 ~-3 ~6 ~4 air
+setblock ~-3 ~6 ~4 vine
+gamerule randomTickSpeed 300
+wait 900
+gamerule randomTickSpeed 3
+check is ~-3,~5,~4:vine == 1
+# maxEntityCramming: too many mobs in one spot hurt each other
+gamerule maxEntityCramming 4
+summon pig ~6 ~ ~6
+summon pig ~6 ~ ~6
+summon pig ~6 ~ ~6
+summon pig ~6 ~ ~6
+summon pig ~6 ~ ~6
+summon pig ~6 ~ ~6
+wait 60
+check crammed >= 1
+kill @e[type=pig]
+gamerule maxEntityCramming 24
+# effects that act on death or when hurt
+summon cow ~6 ~ ~-6
+effect give @e[type=cow] weaving 60 0
+effect give @e[type=cow] oozing 60 0
+effect give @e[type=cow] wind_charged 60 0
+wait 2
+kill @e[type=cow]
+wait 10
+check effectdeaths >= 3
+check mob slime >= 2
+check near cobweb,12 >= 1
+kill @e[type=slime]
+summon zombie ~-6 ~ ~6
+effect give @e[type=zombie] infested 60 0
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+damage @e[type=zombie,limit=1] 1 generic
+wait 5
+check mob silverfish >= 0
+kill @e[type=zombie]
+kill @e[type=silverfish]
+# Trial Omen: Bad Omen turns into Trial Omen beside a trial spawner
+gamemode survival
+effect give @s bad_omen 600 1
+setblock ~2 ~ ~-6 trial_spawner
+wait 40
+check effect trial_omen >= 1
+check effect bad_omen == 0
+setblock ~2 ~ ~-6 air
+# Conduit Power: no air lost underwater
+heal
+fill ~-1 ~ ~-1 ~1 ~2 ~1 water
+effect give @s conduit_power 600 0
+wait 200
+check air >= 890
+effect clear @s
+fill ~-1 ~ ~-1 ~1 ~2 ~1 air
+# recipes unlock when you pick things up
+clear
+give oak_log
+wait 2
+check recipesunlocked >= 1
+# doInsomnia: phantoms come for a player who has not slept for days
+time set midnight
+gamerule doMobSpawning true
+gamerule doInsomnia true
+setrest 1000000000
+forcespawns
+wait 6
+check phantoms >= 1
+check traders >= 1
+check mob wandering_trader >= 1
+quit

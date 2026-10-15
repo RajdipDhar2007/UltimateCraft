@@ -1,0 +1,74 @@
+# /scoreboard (+ sidebar, operations, criteria), /execute store + if score, /data, /attribute, /worldborder,
+# /spreadplayers, /fillbiome, /forceload, /item replace, /loot, /function + data packs (load tag), persistence.
+newworld CmdTest 83 0
+waitready
+killall
+gamerule doMobSpawning false
+gamemode creative
+flatten 6
+check sbscore #loaded,uc_loaded == 1
+scoreboard objectives add kills totalKillCount Kills
+scoreboard objectives add points dummy Points
+scoreboard players set Player points 5
+scoreboard players add Player points 3
+check sbscore Player,points == 8
+scoreboard players set #two points 2
+scoreboard players operation Player points *= #two points
+check sbscore Player,points == 16
+scoreboard objectives setdisplay sidebar points
+check sidebar == 1
+execute store result score Player points run data get entity @s Health
+check sbscore Player,points == 20
+execute if score Player points matches 15..25 run scoreboard players set #ok points 1
+check sbscore #ok,points == 1
+execute if score Player points > #two points run scoreboard players set #gt points 1
+check sbscore #gt,points == 1
+summon zombie ~3 ~ ~
+damage @e[type=zombie,limit=1] 100 player_attack by @s
+wait 30
+check sbscore Player,kills == 1
+attribute @s minecraft:generic.max_health base set 30
+check maxhp == 30
+data merge entity @s {Health:25f}
+check health == 25
+item replace entity @s armor.head with diamond_helmet
+check armorcount == 1
+clear
+loot give @s loot ultimatecraft:chests/simple_dungeon
+check invcount >= 1
+function ultimatecraft:hello
+check sbscore #hello,uc_demo == 7
+fillbiome ~-2 ~-1 ~-2 ~2 ~1 ~2 desert
+check inbiome desert == 1
+tp 0 ~ 0
+forceload add 0 0
+check forceloaded == 1
+kill @e[type=pig]
+summon pig ~ ~ ~
+summon pig ~ ~ ~
+summon pig ~ ~ ~
+spreadplayers 0 0 3 10 false @e[type=pig]
+check mob pig == 3
+screenshot commands_sidebar
+# the world border pushes survival players back inside
+worldborder center 0 0
+worldborder set 40
+gamemode survival
+tp 100 ~ 100
+wait 10
+check x <= 21
+check z <= 21
+check wbsize == 40
+screenshot worldborder
+save
+loadworld CmdTest
+waitready
+wait 10
+check sbscore Player,points == 20
+check sbscore Player,kills == 1
+check wbsize == 40
+gamemode creative
+tp 0 ~ 0
+forceload query 0 0
+check forceloaded == 1
+quit

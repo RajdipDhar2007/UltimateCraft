@@ -1,0 +1,47 @@
+# The Sift's blessings (and Health Boost): Vigor raises max health and heals, the Sky blessing removes fall damage
+# and raises jumps, Light purges Haunted and sears nearby undead.
+newworld BlessTest 99 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+flatten 8
+gamemode survival
+heal
+check maxhp == 20
+effect give @s health_boost 60 1
+wait 5
+check maxhp == 28
+effect clear @s
+wait 5
+check maxhp == 20
+effect give @s blessing_of_vigor 60 0
+wait 5
+check maxhp == 24
+damage @s 6 magic
+wait 5
+check health <= 18
+wait 700
+check health >= 22
+effect clear @s
+# sky: falling 30 blocks hurts nobody blessed
+heal
+effect give @s blessing_of_the_sky 60 0
+tp ~ ~30 ~
+wait 600
+check health == 20
+check dead == 0
+effect clear @s
+# light: no Haunted, burns a zombie standing next to you
+effect give @s haunted 60 0
+wait 2
+effect give @s blessing_of_light 60 1
+wait 5
+check effect haunted == 0
+gamemode creative
+summon zombie ~3 ~ ~
+wait 2
+check mobhp zombie == 20
+wait 300
+check mobhp zombie < 20
+quit

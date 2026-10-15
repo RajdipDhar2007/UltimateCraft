@@ -1,0 +1,10 @@
+# Release features: version shown, title theme / menus, world backup / export from the world list, tutorial hints
+# off in scripts, graphics presets via Options.
+newworld RelTest 95 0
+waitready
+check tutorial >= 0
+save
+screen title
+wait 5
+screenshot title_v5
+quit

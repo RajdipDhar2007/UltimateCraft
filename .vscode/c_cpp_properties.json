@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "MSYS2 UCRT64",
+      "compilerPath": "C:/msys64/ucrt64/bin/gcc.exe",
+      "intelliSenseMode": "windows-gcc-x64",
+      "cStandard": "gnu11",
+      "includePath": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/lib/glad/include",
+        "${workspaceFolder}/lib/glfw/include",
+        "${workspaceFolder}/lib/stb",
+        "${workspaceFolder}/lib/noise"
+      ],
+      "defines": []
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,31 @@
+# visual check of mob skins (lineup photo shots)
+newworld MobShots 21 0
+waitready
+gamerule doMobSpawning false
+killall
+time set noon
+flatten 14
+gamemode creative
+wait 5
+look 180 -6
+summon zombie 0 5
+summon skeleton 2 5
+summon creeper -2 5
+summon pig 4 5
+summon cow -4 5
+summon sheep 6 5
+summon chicken -6 5
+wait 60
+screenshot mobshot_a
+killall
+summon wolf 0 4
+summon fox 2 4
+summon cat -2 4
+summon horse 5 6
+summon villager -4 4
+summon spider 0 7
+summon enderman -5 7
+summon iron_golem 6 7
+wait 60
+screenshot mobshot_b
+quit

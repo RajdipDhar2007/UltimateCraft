@@ -1,0 +1,100 @@
+# The Sift: wandering souls, the Luminaries (Solenne, Zephyrine, Thalor), their temples and trials,
+# the Avatar of Thalor, the Ascension ending + credits, saving trial progress, divine gear.
+newworld SiftTest 31337 0
+waitready
+killall
+gamerule doMobSpawning false
+dimension sift
+waitready
+wait 30
+check dim == 3
+gamemode creative
+# ---- souls: lore, a one-time gift, trades
+summon sift_soul ~2 ~1 ~
+wait 10
+check mob sift_soul >= 1
+talk
+check soultalks == 1
+check have soul_essence == 1
+check blessed >= 1
+talk
+check soultalks == 2
+check have soul_essence == 1
+check offers >= 3
+kill @e[type=sift_soul]
+# ---- Solenne, the Dawnkeeper: an offering of four Radiant Crystals
+locate temple_of_dawn tp
+waitready
+wait 60
+check instructure == 21
+check mob god_solenne == 1
+talk
+check trials == 0
+give radiant_crystal 4
+talk
+check trials == 1
+check effect blessing_of_light >= 1
+check have radiant_crystal == 0
+damage @e[type=god_solenne,limit=1] 50 magic
+wait 5
+check mobhp god_solenne == 1000
+screenshot sift_dawn
+# ---- Zephyrine: climb the Spire of Winds (the climb is the trial), then she trades
+locate spire_of_winds tp
+waitready
+wait 60
+check instructure == 22
+check mob god_zephyrine == 1
+tp ~ ~33 ~
+wait 20
+talk
+check trials == 3
+check effect blessing_of_the_sky >= 1
+talk
+check offers >= 4
+screen close
+screenshot sift_spire
+# ---- trial progress survives save and reload
+save
+loadworld SiftTest
+waitready
+wait 30
+check dim == 3
+check trials == 3
+# ---- Thalor the Stoneheart: defeat his Avatar in the Arena of Stone
+locate arena_of_stone tp
+waitready
+wait 60
+check instructure == 23
+check mob god_thalor == 1
+gamemode survival
+heal
+effect give @s resistance 100000 4 true
+talk
+wait 10
+check mob thalor_avatar == 1
+wait 600
+check eruptions >= 1
+check bossphase >= 1
+check dead == 0
+damage @e[type=thalor_avatar,limit=1] 2000 magic
+wait 60
+check mob thalor_avatar == 0
+check trials == 7
+check ascended == 1
+check effect blessing_of_vigor >= 1
+check credits == 1
+wait 200
+screenshot sift_credits
+screen close
+# ---- divine weapons are holy (ghosts take double)
+gamemode creative
+clear
+give divine_sword
+select 0
+summon ghost ~2 ~1 ~
+wait 2
+damage @e[type=ghost,limit=1] 4 player_attack by @s
+wait 5
+check mobhp ghost == 10
+quit

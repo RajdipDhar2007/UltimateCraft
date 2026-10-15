@@ -1,0 +1,50 @@
+# Falling blocks are real entities: sand and gravel drop under gravity, stack up, replace water and settle on the ground.
+newworld FallingTest 83 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+flatten 8
+gamemode creative
+# --- a single sand block falls and lands where it should
+setblock ~2 ~6 ~ sand
+wait 6
+check is ~2,~6,~:sand == 0
+wait 60
+check is ~2,~,~:sand == 1
+check is ~2,~6,~:air == 1
+# --- a gravel column falls together and keeps its order
+setblock ~3 ~4 ~ gravel
+setblock ~3 ~5 ~ gravel
+setblock ~3 ~6 ~ red_sand
+wait 90
+check is ~3,~,~:gravel == 1
+check is ~3,~1,~:gravel == 1
+check is ~3,~2,~:red_sand == 1
+# --- sand sinks through water and replaces it
+setblock ~5 ~ ~ water
+setblock ~5 ~5 ~ sand
+wait 120
+check is ~5,~,~:sand == 1
+# --- support removed from under sand: it drops when the block below is broken
+setblock ~7 ~ ~ stone
+setblock ~7 ~1 ~ sand
+wait 5
+setblock ~7 ~ ~ air
+wait 60
+check is ~7,~1,~:air == 1
+check is ~7,~,~:sand == 1
+# --- an anvil lands too
+setblock ~9 ~6 ~ anvil
+wait 90
+check is ~9,~,~:anvil == 1
+# --- a falling anvil hurts a mob standing underneath (a husk does not burn in daylight, slowness keeps it in place)
+summon husk ~12 ~ ~
+effect give @e[type=husk] slowness 100 9 true
+wait 20
+check mobhp husk == 20
+setblock ~12 ~8 ~ anvil
+wait 90
+check mobhp husk < 20
+screenshot falling_done
+quit

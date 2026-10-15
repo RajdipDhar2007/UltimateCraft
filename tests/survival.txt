@@ -1,0 +1,52 @@
+newworld SurvTest 31337 0
+waitready
+killall
+time set noon
+flatten 12
+wait 5
+# ---- furnace: 8 iron ore + coal -> iron ingots (10 s each at 60 tps = 600 ticks)
+clear
+look 0 0
+furnace iron_ore coal
+screen close
+wait 1300
+takefurnace
+check inv iron_ingot >= 2
+screenshot surv_furnace_world
+# ---- fall damage
+heal
+tp ~ ~12 ~
+wait 150
+check health < 20
+# ---- hunger and eating
+heal
+starve 10
+check food == 10
+clear
+give cooked_beef 3
+select 0
+look 180 -30
+mouse 1 1
+wait 100
+mouse 1 0
+wait 5
+check food > 10
+check inv cooked_beef == 2
+# ---- bow
+clear
+give bow
+give arrow 10
+select 0
+look 180 0
+summon pig 1 6
+wait 10
+mouse 1 1
+wait 70
+mouse 1 0
+wait 30
+check inv arrow == 9
+# ---- drowning
+killall
+heal
+screenshot surv_end
+quit

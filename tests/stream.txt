@@ -1,0 +1,19 @@
+newworld StreamTest 2025 1
+waitready
+fly
+tp ~ ~40 ~
+wait 20
+look 0 -15
+key CTRL 1
+key W 1
+wait 600
+screenshot stream_1
+wait 600
+check z > 20
+check loaded > 200
+screenshot stream_2
+key W 0
+key CTRL 0
+wait 300
+check loaded <= 784
+quit

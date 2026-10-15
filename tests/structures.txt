@@ -1,0 +1,64 @@
+newworld StructTest 12345 1
+waitready
+time set noon
+hud off
+fly
+# ---- village: houses, villagers with jobs, iron golem, loot chests
+locate village tp
+wait 30
+waitready
+wait 60
+check instructure == 0
+check mob villager >= 3
+check mob iron_golem >= 1
+check lootchests >= 1
+tp ~0 ~25 ~0
+look 30 -25
+wait 10
+screenshot st_village
+# ---- outpost with pillagers, witch hut with its witch, mansion with vindicators
+locate pillager_outpost tp
+wait 30
+waitready
+wait 60
+check mob pillager >= 1
+locate swamp_hut tp
+wait 30
+waitready
+wait 60
+check mob witch >= 1
+locate monument tp
+wait 30
+waitready
+wait 60
+check mob elder_guardian >= 1
+locate mineshaft tp
+wait 30
+waitready
+wait 60
+check instructure == 11
+# ---- nether fortress (blaze spawners) and bastion (piglin brutes)
+dimension nether
+wait 30
+waitready
+locate fortress tp
+wait 30
+waitready
+wait 60
+check instructure == 16
+check spawners >= 1
+locate bastion_remnant tp
+wait 30
+waitready
+wait 60
+check mob piglin_brute >= 1
+# ---- end city with shulkers
+dimension end
+wait 30
+waitready
+locate end_city tp
+wait 30
+waitready
+wait 80
+check mob shulker >= 1
+quit

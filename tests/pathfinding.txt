@@ -1,0 +1,32 @@
+# A* pathfinding: a zombie walks round a wall through a gap instead of pushing into it; a vindicator opens a
+# wooden door to reach the player.
+newworld PathTest 88 0
+waitready
+killall
+gamerule doMobSpawning false
+difficulty normal
+time set noon
+flatten 8
+gamemode survival
+heal
+effect give @s resistance 100000 4 true
+effect give @s regeneration 100000 4 true
+summon zombie ~6 ~ ~
+wait 20
+fill ~3 ~ ~-9 ~3 ~2 ~9 stone
+fill ~3 ~ ~6 ~3 ~1 ~6 air
+wait 700
+check pathsfound >= 1
+check mobdist zombie < 3
+kill @e[type=zombie]
+fill ~3 ~ ~-9 ~3 ~2 ~9 air
+# a closed room with a door; the vindicator outside opens it
+fill ~-3 ~ ~-3 ~3 ~3 ~3 cobblestone
+fill ~-2 ~ ~-2 ~2 ~2 ~2 air
+setblock ~3 ~ ~ oak_door
+setblock ~3 ~1 ~ oak_door:2
+summon vindicator ~6 ~ ~
+wait 700
+check doorsopened >= 1
+check mobdist vindicator < 4
+quit

@@ -1,0 +1,75 @@
+newworld SysTest 4242 0
+waitready
+killall
+time set noon
+flatten 10
+wait 5
+# ---- crafting through real mouse clicks (gui scale 3 at 1280x720: panel at 125,37)
+clear
+give oak_log 4
+press E
+wait 2
+cursor 141 187
+mouse 0 1
+mouse 0 0
+wait 2
+cursor 221 71
+mouse 0 1
+mouse 0 0
+wait 2
+screenshot sys_craft_grid
+cursor 277 81
+mouse 0 1
+mouse 0 0
+wait 2
+cursor 159 187
+mouse 0 1
+mouse 0 0
+wait 2
+press ESC
+wait 3
+check inv oak_planks == 4
+check inv oak_log == 3
+# ---- crafting table + tools via recipe matching
+give oak_planks 8
+give stick 4
+log crafting checks done
+# ---- persistence: modify world, then save, quit, reload
+setblock 3 70 3 glowstone
+xp 30
+give diamond 5
+look 45 -30
+wait 5
+screen title
+wait 5
+check screen == 1
+loadworld SysTest
+waitready
+wait 10
+check inv diamond == 5
+check level >= 2
+check inv oak_planks >= 4
+log persistence ok
+# ---- night: hostile mobs spawn
+time set midnight
+killall
+wait 600
+check hostile >= 1
+screenshot sys_night
+# ---- creeper explosion damages terrain and player
+killall
+time set noon
+heal
+summon creeper 1 3
+wait 160
+check health < 20
+screenshot sys_explosion
+# ---- skeleton shoots arrows
+killall
+heal
+look 0 0
+summon skeleton 1 8
+wait 360
+check health < 20
+screenshot sys_skeleton
+quit

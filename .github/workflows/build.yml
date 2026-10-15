@@ -1,0 +1,84 @@
+# UltimateCraft CI: builds Windows, Linux and macOS on every push, runs the headless test scripts on Linux, and
+# packages everything. Pushing a tag like "v5.1.0" also creates a GitHub Release with all packages attached.
+# Windows exe: open the run -> "Artifacts" -> UltimateCraft-windows (portable zip) or UltimateCraft-windows-installer.
+name: build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults: { run: { shell: msys2 {0} } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          install: mingw-w64-ucrt-x86_64-gcc make zip
+      - name: Build (GUI exe, static)
+        run: make -j4
+      - name: Build console variant (logs on screen)
+        run: make clean && make -j4 CONSOLE=1 OUT=ultimatecraft-console.exe && make clean && make -j4
+      - name: Package portable folder
+        run: sh tools/package.sh windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UltimateCraft-windows
+          path: dist/UltimateCraft
+      - name: Installer (Inno Setup)
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\UltimateCraft.iss
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UltimateCraft-windows-installer
+          path: dist/UltimateCraft-Setup-*.exe
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y build-essential libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev xvfb mesa-utils
+      - run: make -j4
+      - name: Headless tests (fast subset; tests/run_all.sh runs everything)
+        run: |
+          fail=0
+          for t in smoke content redstone features structures commands2 cmdblocks decor fishing tripwire pistons safety controls language falling trees fluids; do
+            LIBGL_ALWAYS_SOFTWARE=1 timeout 600 xvfb-run -a -s "-screen 0 1280x720x24" ./ultimatecraft --script tests/$t.txt --no-audio > log_$t.txt 2>&1 || true
+            r=$(grep "SCRIPT DONE" log_$t.txt || echo "$t: DID NOT FINISH"); echo "$t: $r"
+            echo "$r" | grep -q " 0 failed" || fail=1
+          done
+          exit $fail
+      - name: Package
+        run: sh tools/package.sh linux
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UltimateCraft-linux
+          path: dist/UltimateCraft-*-linux.tar.gz
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make -j4
+      - run: sh tools/package.sh macos
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UltimateCraft-macos
+          path: dist/UltimateCraft-*-macos.zip
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [windows, linux, macos]
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: artifacts }
+      - run: cd artifacts/UltimateCraft-windows && zip -qr ../../UltimateCraft-windows.zip .
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            UltimateCraft-windows.zip
+            artifacts/UltimateCraft-windows-installer/*.exe
+            artifacts/UltimateCraft-linux/*.tar.gz
+            artifacts/UltimateCraft-macos/*.zip

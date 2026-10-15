@@ -1,0 +1,15 @@
+newworld LightTest 8 0
+waitready
+killall
+flatten 10
+time set midnight
+look 0 -25
+setblock ~-2 ~ ~4 torch
+setblock ~3 ~ ~5 torch
+setblock ~0 ~ ~9 glowstone
+setblock ~-4 ~ ~8 cobblestone
+setblock ~-4 ~1 ~8 cobblestone
+setblock ~4 ~ ~2 lava
+wait 30
+screenshot light_night
+quit

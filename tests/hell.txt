@@ -1,0 +1,69 @@
+# Hell content: the Ghost (translucent, phasing, life drain, Haunted, holy weakness), ectoplasm.
+newworld HellTest 4321 0
+waitready
+killall
+time set noon
+gamerule doMobSpawning false
+dimension hell
+waitready
+wait 30
+check dim == 1
+# a sealed hellrack arena so lava can't interfere
+fill ~-7 ~-1 ~-7 ~7 ~5 ~7 netherrack
+fill ~-6 ~0 ~-6 ~6 ~4 ~6 air
+wait 10
+killall
+gamemode creative
+summon ghost ~6 ~1 ~
+wait 30
+check mob ghost == 1
+screenshot hell_ghost
+# ordinary damage is halved, gold (holy) damage is doubled
+gamemode survival
+heal
+clear
+summon ghost ~2 ~1 ~ 
+wait 2
+check mobhp ghost == 18
+damage @e[type=ghost,limit=1,sort=nearest] 4 player_attack by @s
+wait 5
+check mobhp ghost == 16
+kill @e[type=ghost]
+wait 30
+# the ghost hunts the player and leaves them Haunted
+summon ghost ~3 ~1 ~
+wait 240
+check effect haunted >= 1
+check health < 20
+check dead == 0
+# ghosts phase through walls: box one in stone and wait for it to come out
+kill @e[type=ghost]
+gamemode creative
+wait 30
+fill ~2 ~0 ~-2 ~5 ~3 ~2 stone
+fill ~3 ~0 ~-1 ~4 ~2 ~1 air
+summon ghost ~3 ~1 ~
+wait 30
+check mob ghost == 1
+heal
+gamemode survival
+wait 900
+check ghostphases >= 1
+log ghost phase test done
+# killing a ghost with a golden sword (holy: double damage) drops ectoplasm
+gamemode creative
+kill @e[type=ghost]
+wait 30
+summon ghost ~2 ~1 ~
+wait 2
+clear
+give golden_sword
+select 0
+damage @e[type=ghost,limit=1,sort=nearest] 4 player_attack by @s
+wait 5
+check mobhp ghost == 10
+damage @e[type=ghost,limit=1,sort=nearest] 20 player_attack by @s
+wait 60
+check mob ghost == 0
+check items >= 1
+quit

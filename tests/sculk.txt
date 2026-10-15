@@ -1,0 +1,79 @@
+# Sculk: vibrations, sensor power by distance, wool dampening, calibrated sensors, redstone output,
+# shrieker warning levels -> Darkness -> a warden emerges, catalyst spreading.
+newworld SculkTest 77 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+flatten 8
+gamemode creative
+setblock ~2 ~ ~ sculk_sensor
+setblock ~6 ~ ~ sculk_sensor
+wait 5
+check power ~2,~,~ == 0
+vibrate 1
+wait 2
+check power ~2,~,~ == 12
+check power ~6,~,~ == 4
+check sensortriggers == 2
+wait 120
+check power ~2,~,~ == 0
+# wool on the line absorbs the vibration
+setblock ~1 ~ ~ white_wool
+vibrate 1
+wait 2
+check power ~2,~,~ == 0
+check power ~6,~,~ == 0
+setblock ~1 ~ ~ air
+# a calibrated sensor fed power 15 only hears frequency 15
+setblock ~ ~ ~3 calibrated_sculk_sensor
+setblock ~ ~ ~4 redstone_block
+vibrate 3
+wait 2
+check power ~,~,~3 == 0
+wait 120
+vibrate 15
+wait 2
+check power ~,~,~3 >= 1
+wait 120
+# an active sensor powers what is next to it
+setblock ~2 ~1 ~ redstone_lamp
+vibrate 1
+wait 3
+check power ~2,~1,~ == 12
+wait 120
+# shriekers: each player vibration near one raises the warning level; the fourth calls a warden
+gamerule doWardenSpawning true
+difficulty normal
+setblock ~-3 ~ ~ sculk_shrieker:1
+vibrate 1
+wait 5
+check shrieks == 1
+check wardenwarning == 1
+check effect darkness >= 1
+vibrate 1
+wait 5
+check shrieks == 1
+wait 600
+vibrate 1
+wait 605
+vibrate 1
+wait 605
+check wardenwarning == 3
+check mob warden == 0
+vibrate 1
+wait 20
+check shrieks == 4
+check mob warden == 1
+check wardenssummoned == 1
+check wardenwarning == 0
+kill @e[type=warden]
+# a catalyst spreads sculk where mobs die
+setblock ~-2 ~-1 ~-3 sculk_catalyst
+summon zombie ~ ~ ~-3
+wait 5
+kill @e[type=zombie]
+wait 30
+check sculkspread >= 1
+screenshot sculk
+quit

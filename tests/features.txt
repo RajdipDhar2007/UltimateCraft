@@ -1,0 +1,168 @@
+newworld FeatTest 99 0
+waitready
+killall
+time set noon
+flatten 14
+wait 5
+clear
+# ---- enchanting table with a ring of bookshelves
+setblock ~3 ~0 ~0 enchanting_table
+setblock ~1 ~0 ~-2 bookshelf
+setblock ~1 ~0 ~-1 bookshelf
+setblock ~1 ~0 ~0 bookshelf
+setblock ~1 ~0 ~1 bookshelf
+setblock ~1 ~0 ~2 bookshelf
+setblock ~5 ~0 ~-2 bookshelf
+setblock ~5 ~0 ~-1 bookshelf
+setblock ~5 ~0 ~0 bookshelf
+setblock ~5 ~0 ~1 bookshelf
+setblock ~5 ~0 ~2 bookshelf
+xp 2000
+check level >= 30
+open ~3 ~0 ~0
+grid 0 diamond_sword
+grid 1 lapis_lazuli 5
+wait 2
+screenshot feat_enchanting
+enchantopt 2
+screen close
+check ench diamond_sword:any >= 1
+check level <= 31
+check inv lapis_lazuli == 2
+# ---- anvil: merge an enchanted book and rename
+clear
+give diamond_sword
+enchant sharpness 3
+book unbreaking 3
+setblock ~-3 ~0 ~0 anvil
+open ~-3 ~0 ~0
+gridinv 0 0
+gridinv 1 1
+anvilname Excalibur
+wait 2
+screenshot feat_anvil
+takeresult
+screen close
+check ench diamond_sword:unbreaking == 3
+check ench diamond_sword:sharpness == 3
+check named Excalibur == 1
+check inv enchanted_book == 0
+# ---- grindstone removes the enchantments and gives experience
+setblock ~-3 ~0 ~3 grindstone
+open ~-3 ~0 ~3
+gridinv 0 0
+takeresult
+screen close
+check ench diamond_sword:any == 0
+check orbs >= 1
+# ---- loom adds a pattern layer
+clear
+setblock ~-3 ~0 ~-3 loom
+open ~-3 ~0 ~-3
+grid 0 white_banner
+grid 1 red_dye
+loomsel 10
+wait 2
+screenshot feat_loom
+takeresult
+screen close
+check layers white_banner == 1
+# ---- maps draw the terrain; the cartography table zooms them out
+clear
+give map
+useitem
+check inv filled_map == 1
+wait 200
+check mapexplored > 3
+setblock ~3 ~0 ~-3 cartography_table
+open ~3 ~0 ~-3
+gridinv 0 0
+grid 1 paper
+takeresult
+screen close
+check mapscale == 1
+# ---- recipe book fills the grid from the inventory
+clear
+give oak_log 2
+wait 300
+screen crafting
+recipebook 1
+wait 2
+screenshot feat_recipebook
+recipefill oak_planks
+takeresult
+screen close
+check inv oak_planks == 4
+# ---- villagers take a job from a nearby workstation and trade
+clear
+killall
+look 0 0
+summon villager 1 2
+setblock ~0 ~0 ~5 lectern
+wait 200
+check prof > 0
+profession farmer
+give wheat 40
+give potato 52
+give carrot 44
+give beetroot 30
+give emerald 10
+trade
+tradesel 0
+takeresult
+tradesel 1
+takeresult
+wait 2
+screenshot feat_trading
+screen close
+check vxp >= 1
+# ---- minecart on powered rails
+setblock ~-1 ~0 ~-8 stone
+setblock ~0 ~-1 ~-8 redstone_block
+setblock ~1 ~-1 ~-8 redstone_block
+setblock ~2 ~-1 ~-8 redstone_block
+setblock ~0 ~0 ~-8 powered_rail:1
+setblock ~1 ~0 ~-8 powered_rail:1
+setblock ~2 ~0 ~-8 powered_rail:1
+setblock ~3 ~0 ~-8 rail:1
+setblock ~4 ~0 ~-8 rail:1
+setblock ~5 ~0 ~-8 rail:1
+setblock ~6 ~0 ~-8 rail:1
+setblock ~7 ~0 ~-8 rail:1
+setblock ~8 ~0 ~-8 rail:1
+wait 10
+tp ~0 ~0 ~-8
+vehicle minecart mount
+mark
+wait 120
+check moved > 3
+dismount
+tp ~0 ~0 ~8
+# ---- riding a horse
+killall
+tp ~40 ~10 ~0
+wait 40
+flatten 14
+wait 5
+summon horse 2 0
+wait 5
+mount
+check riding == 1
+look 0 0
+mark
+key W 1
+wait 80
+key W 0
+check moved > 4
+dismount
+check riding == 0
+# ---- boats on water
+killall
+fill water
+vehicle oak_boat mount
+check riding == 1
+check vehicles >= 1
+dismount
+killall
+screenshot feat_minecart
+quit

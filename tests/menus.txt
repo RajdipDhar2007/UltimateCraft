@@ -1,0 +1,43 @@
+wait 30
+screenshot menu_title
+cursor 213 108
+mouse 0 1
+mouse 0 0
+wait 10
+screenshot menu_worlds
+cursor 291 188
+mouse 0 1
+mouse 0 0
+wait 10
+screenshot menu_create
+press ESC
+wait 3
+press ESC
+wait 3
+cursor 213 132
+mouse 0 1
+mouse 0 0
+wait 10
+screenshot menu_settings
+press ESC
+wait 3
+newworld MenuTest 99 1
+waitready
+wait 20
+time set sunset
+look 270 5
+wait 5
+screenshot world_sunset
+screen pause
+wait 5
+screenshot menu_pause
+screen close
+time set midnight
+wait 5
+look 270 10
+screenshot world_night
+give torch 5
+screen inventory
+wait 5
+screenshot menu_creative
+quit

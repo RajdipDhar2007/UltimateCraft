@@ -1,0 +1,13 @@
+name: Feature request
+description: Suggest a block, mob, biome, mechanic, language or quality-of-life improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to see?
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes:
+      label: Why would it make the game better?

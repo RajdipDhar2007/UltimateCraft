@@ -1,0 +1,81 @@
+# The Underground City (Delvari Underhold): /locate, districts, merchants, guards, the Keeper boss,
+# the Void Sigil it drops, and the Space portal that needs the sigil.
+newworld CityTest 2024 0
+waitready
+killall
+gamerule doMobSpawning false
+gamemode creative
+locate underground_city tp
+waitready
+wait 60
+check instructure == 20
+check y < 40
+check near delvari_bricks,20 >= 1
+check near umbral_lamp,24 >= 1
+check near runic_delvari_bricks,24 >= 1
+screenshot city_keep
+check mob deep_keeper == 1
+check mob hollow_sentinel >= 2
+check mob delvari_merchant >= 1
+check lootchests >= 1
+# the market (north of the keep)
+tp ~ ~ ~-34
+wait 60
+check mob delvari_merchant >= 2
+check offers >= 5
+screenshot city_market
+# the keeper wakes when a survival player comes close, turns to phase II at half health, slams and burns
+tp ~ ~ ~30
+wait 20
+gamemode survival
+heal
+effect give @s resistance 100000 4 true
+effect give @s fire_resistance 100000 0 true
+wait 60
+check bossphase == 1
+wait 540
+check bossmax == 320
+check dead == 0
+damage @e[type=deep_keeper,limit=1] 170 magic
+wait 30
+check bossphase == 2
+wait 600
+check keeperslams >= 1
+check dead == 0
+gamemode creative
+damage @e[type=deep_keeper,limit=1] 1000 player_attack by @s
+wait 60
+check mob deep_keeper == 0
+check have void_sigil >= 1
+check have delvari_coin >= 10
+# ---- the Space portal: twelve eyes align the frame, but only a Void Sigil opens it
+kill @e[type=hollow_sentinel]
+fill ~-1 ~-1 ~ ~1 ~-1 ~ end_portal_frame:1
+fill ~-1 ~-1 ~4 ~1 ~-1 ~4 end_portal_frame:1
+fill ~-2 ~-1 ~1 ~-2 ~-1 ~3 end_portal_frame:1
+fill ~2 ~-1 ~1 ~2 ~-1 ~3 end_portal_frame:1
+fill ~-1 ~-1 ~1 ~1 ~-1 ~3 air
+setblock ~ ~-1 ~ end_portal_frame
+gamemode survival
+clear
+give ender_eye 1
+select 0
+look 0 -90
+wait 5
+mouse 1 1
+wait 2
+mouse 1 0
+wait 5
+check near end_portal,6 == 0
+clear
+give void_sigil 1
+select 0
+wait 5
+mouse 1 1
+wait 2
+mouse 1 0
+wait 5
+check near end_portal,6 >= 9
+check inv void_sigil == 0
+screenshot city_portal
+quit

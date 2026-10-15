@@ -1,0 +1,36 @@
+# Rebindable controls, toggle sneak, the controls & accessibility screen.
+newworld CtlTest 90 0
+waitready
+flatten 4
+gamemode survival
+check keybind sneak == 340
+setting toggle_sneak 1
+press SHIFT
+wait 2
+check sneaking == 1
+wait 30
+check sneaking == 1
+press SHIFT
+wait 2
+check sneaking == 0
+# rebind sneak to C: Shift does nothing now
+setting key_sneak 67
+check keybind sneak == 67
+press SHIFT
+wait 2
+check sneaking == 0
+press C
+wait 2
+check sneaking == 1
+press C
+wait 2
+check sneaking == 0
+controls
+wait 5
+screenshot controls
+screen close
+# back to the defaults
+setting toggle_sneak 0
+setting key_sneak 340
+check keybind sneak == 340
+quit

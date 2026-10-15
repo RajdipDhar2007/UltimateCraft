@@ -1,0 +1,102 @@
+newworld RedTest 777 1
+waitready
+killall
+time set noon
+flatten 16
+wait 5
+# ---- lever -> dust line -> lamp
+setblock ~3 ~0 ~0 lever:2
+setblock ~4 ~0 ~0 redstone_wire
+setblock ~5 ~0 ~0 redstone_wire
+setblock ~6 ~0 ~0 redstone_wire
+setblock ~7 ~0 ~0 redstone_wire
+setblock ~8 ~0 ~0 redstone_lamp
+wait 10
+check is ~8,~0,~0:redstone_lamp:0 == 1
+activate ~3 ~0 ~0
+wait 10
+check power ~4,~0,~0 == 15
+check power ~7,~0,~0 == 12
+check is ~8,~0,~0:redstone_lamp:1 == 1
+activate ~3 ~0 ~0
+wait 30
+check power ~5,~0,~0 == 0
+check is ~8,~0,~0:redstone_lamp:0 == 1
+# ---- torch inverter: lever powers a block, the torch on it turns off, the lamp goes dark
+setblock ~3 ~0 ~4 stone
+setblock ~2 ~0 ~4 lever:1
+setblock ~4 ~0 ~4 redstone_wall_torch:3
+setblock ~5 ~0 ~4 redstone_lamp
+wait 20
+check is ~5,~0,~4:redstone_lamp:1 == 1
+activate ~2 ~0 ~4
+wait 30
+check is ~4,~0,~4:redstone_wall_torch:7 == 1
+check is ~5,~0,~4:redstone_lamp:0 == 1
+# ---- repeater carries a signal and delays it
+setblock ~3 ~0 ~12 lever:2
+setblock ~4 ~0 ~12 repeater:8
+setblock ~5 ~0 ~12 redstone_wire
+setblock ~6 ~0 ~12 redstone_lamp
+wait 5
+activate ~3 ~0 ~12
+wait 2
+check is ~6,~0,~12:redstone_lamp:0 == 1
+wait 20
+check is ~4,~0,~12:repeater:9 == 1
+check power ~5,~0,~12 == 15
+check is ~6,~0,~12:redstone_lamp:1 == 1
+# ---- piston pushes and retracts
+setblock ~3 ~0 ~8 piston:1
+setblock ~4 ~0 ~8 cobblestone
+setblock ~3 ~0 ~7 lever:2
+wait 5
+activate ~3 ~0 ~7
+wait 10
+check is ~5,~0,~8:cobblestone == 1
+check is ~4,~0,~8:piston_head:1 == 1
+activate ~3 ~0 ~7
+wait 10
+check is ~4,~0,~8:air == 1
+# ---- sticky piston pulls the block back
+setblock ~-3 ~0 ~8 sticky_piston:0
+setblock ~-4 ~0 ~8 oak_planks
+setblock ~-3 ~0 ~9 lever:2
+wait 5
+activate ~-3 ~0 ~9
+wait 10
+check is ~-5,~0,~8:oak_planks == 1
+activate ~-3 ~0 ~9
+wait 10
+check is ~-4,~0,~8:oak_planks == 1
+# ---- redstone torch under TNT primes it
+setblock ~-6 ~0 ~0 tnt
+setblock ~-6 ~-1 ~0 redstone_block
+wait 3
+setblock ~-6 ~0 ~0 tnt
+wait 5
+check is ~-6,~0,~0:air == 1
+# ---- water flows, levels drop, it stops after 7 blocks
+setblock ~0 ~0 ~-8 water
+wait 200
+check fluid ~3,~0,~-8 == 1
+check var ~3,~0,~-8 == 3
+check fluid ~7,~0,~-8 == 1
+check fluid ~8,~0,~-8 == 0
+# removing the source dries the flow
+setblock ~0 ~0 ~-8 air
+wait 300
+check fluid ~3,~0,~-8 == 0
+# ---- water reaching a lava source makes obsidian; lava flowing into water makes cobblestone
+setblock ~-12 ~0 ~-12 lava
+setblock ~-10 ~0 ~-12 water
+wait 120
+check is ~-12,~0,~-12:obsidian == 1
+# ---- water falls into a hole
+setblock ~12 ~-1 ~-12 air
+setblock ~12 ~-2 ~-12 air
+setblock ~11 ~0 ~-12 water
+wait 120
+check fluid ~12,~-2,~-12 == 1
+screenshot redstone_overview
+quit

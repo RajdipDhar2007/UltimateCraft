@@ -1,0 +1,67 @@
+# Decorations: paintings (largest that fits), item frames (insert, rotate, comparator signal, take out),
+# armour stands (equip, take back, poses), save/reload, and dropping when the wall goes.
+newworld DecorTest 81 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+flatten 8
+gamemode survival
+heal
+clear
+fill ~3 ~ ~-3 ~3 ~4 ~3 stone
+summon painting ~2 ~1 ~
+check decor painting == 1
+check paintingarea == 16
+summon item_frame ~2 ~3 ~3
+check decor item_frame == 1
+check framesignal ~3,~3,~3 == 0
+give diamond
+select 0
+decoruse item_frame
+check framesignal ~3,~3,~3 == 1
+check comparatorin ~3,~3,~3 == 1
+check inv diamond == 0
+decoruse item_frame
+decoruse item_frame
+check framesignal ~3,~3,~3 == 3
+summon armor_stand ~-2 ~ ~
+check decor armor_stand == 1
+give iron_chestplate
+select 0
+decoruse armor_stand
+give diamond_helmet
+select 0
+decoruse armor_stand
+check standequip == 2
+select 5
+decoruse armor_stand
+check standequip == 1
+check inv diamond_helmet == 1
+decoruse armor_stand sneak
+check standpose == 1
+look 90 0
+wait 5
+screenshot decor
+# everything survives a save and reload
+save
+loadworld DecorTest
+waitready
+wait 20
+check decor painting == 1
+check decor item_frame == 1
+check decor armor_stand == 1
+check standequip == 1
+check standpose == 1
+check framesignal ~3,~3,~3 == 3
+# taking the item out, then the wall going away
+decorhit item_frame
+check framesignal ~3,~3,~3 == 0
+fill ~3 ~ ~-3 ~3 ~4 ~3 air
+wait 40
+check decor painting == 0
+check decor item_frame == 0
+check items >= 2
+decorhit armor_stand
+check decor armor_stand == 0
+quit

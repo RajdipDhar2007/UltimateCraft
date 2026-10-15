@@ -1,0 +1,65 @@
+# Command blocks (impulse on a rising edge, chain after it, repeating while powered, block-relative
+# coordinates, persistence) and Tab completion.
+newworld CBTest 84 0
+waitready
+killall
+gamerule doMobSpawning false
+flatten 6
+gamemode creative
+scoreboard objectives add cbtest dummy
+setblock ~2 ~ ~ command_block
+setblock ~2 ~ ~1 chain_command_block
+cmdblock ~2 ~ ~ scoreboard players add #cb cbtest 1
+cmdblock ~2 ~ ~1 scoreboard players add #chain cbtest 10
+setblock ~1 ~ ~ redstone_block
+wait 5
+check sbscore #cb,cbtest == 1
+check sbscore #chain,cbtest == 10
+check cmdruns == 2
+wait 30
+check sbscore #cb,cbtest == 1
+setblock ~1 ~ ~ air
+wait 5
+setblock ~1 ~ ~ redstone_block
+wait 5
+check sbscore #cb,cbtest == 2
+# repeating: 20 runs a second while powered
+setblock ~2 ~ ~4 repeating_command_block
+cmdblock ~2 ~ ~4 scoreboard players add #rep cbtest 1
+setblock ~1 ~ ~4 redstone_block
+wait 60
+check sbscore #rep,cbtest >= 10
+setblock ~1 ~ ~4 air
+wait 5
+scoreboard players set #rep cbtest 0
+wait 30
+check sbscore #rep,cbtest == 0
+# commands run at the block: ~ is the block's position
+kill @e[type=pig]
+setblock ~2 ~ ~7 command_block
+cmdblock ~2 ~ ~7 summon pig ~ ~2 ~
+setblock ~1 ~ ~7 redstone_block
+wait 5
+check mob pig == 1
+# command blocks survive a save and reload
+save
+loadworld CBTest
+waitready
+wait 10
+setblock ~1 ~ ~ air
+wait 5
+setblock ~1 ~ ~ redstone_block
+wait 5
+check sbscore #cb,cbtest == 3
+# Tab completion
+complete summ
+check completions == 1
+complete give @s diamond_sw
+check completions == 1
+complete gamerule doWard
+check completions == 1
+complete locate underground
+check completions == 1
+complete summon zomb
+check completions >= 2
+quit

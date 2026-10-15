@@ -1,0 +1,49 @@
+# Piston structures: slime drags its neighbours, honey and slime don't stick to each other, the 12-block limit,
+# sticky pistons pull slime structures back, and quasi-connectivity (power above the piston).
+newworld PistonTest 79 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+flatten 8
+gamemode creative
+tp ~ ~ ~-6
+# --- slime drags a block resting on it and one beside it; honey next to slime stays put
+setblock ~2 ~ ~ piston:1
+setblock ~3 ~ ~ slime_block
+setblock ~3 ~1 ~ stone
+setblock ~3 ~ ~1 oak_planks
+setblock ~3 ~ ~-1 honey_block
+setblock ~1 ~ ~ redstone_block
+wait 10
+check is ~4,~,~:slime_block == 1
+check is ~4,~1,~:stone == 1
+check is ~4,~,~1:oak_planks == 1
+check is ~3,~,~-1:honey_block == 1
+check pistonmoves >= 1
+# --- 13 blocks in a row are too many
+setblock ~2 ~ ~4 piston:1
+fill ~3 ~ ~4 ~15 ~ ~4 stone
+setblock ~1 ~ ~4 redstone_block
+wait 10
+check pistonblocked >= 1
+check is ~3,~,~4:stone == 1
+check is ~16,~,~4:air == 1
+# --- a sticky piston pulls a slime structure back
+setblock ~2 ~ ~8 sticky_piston:1
+setblock ~3 ~ ~8 slime_block
+setblock ~3 ~1 ~8 stone
+setblock ~1 ~ ~8 redstone_block
+wait 10
+check is ~4,~1,~8:stone == 1
+setblock ~1 ~ ~8 air
+wait 10
+check is ~3,~,~8:slime_block == 1
+check is ~3,~1,~8:stone == 1
+# --- quasi-connectivity: power next to the space above the piston extends it
+setblock ~2 ~ ~12 piston:1
+setblock ~1 ~1 ~12 redstone_block
+setblock ~2 ~ ~11 stone
+wait 10
+check is ~3,~,~12:piston_head == 1
+quit

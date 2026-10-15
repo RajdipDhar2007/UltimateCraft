@@ -1,0 +1,115 @@
+# Takes the v5.1 README screenshots (not part of the test suite):
+#   ./ultimatecraft --script tools/screenshots/v5_1.txt --no-audio   -> screenshots/gh51_*.png
+# Each scene is built at its own site (60 blocks apart) so the relative coordinates never collide.
+newworld Gallery51 21 1
+waitready
+gamerule doDaylightCycle false
+gamerule doMobSpawning false
+gamerule doWeatherCycle false
+weather clear
+time set 3000
+killall
+flatten 20
+wait 30
+# ---- scene 1: the zoo, in the sun
+summon husk ~-6 ~ ~6
+summon stray ~-3 ~ ~6
+summon creeper ~0 ~ ~6
+summon villager ~3 ~ ~6
+summon cat ~6 ~ ~5
+summon pig ~-8 ~ ~10
+summon cow ~-5 ~ ~11
+summon sheep ~-2 ~ ~10
+summon chicken ~1 ~ ~9
+summon horse ~4 ~ ~11
+summon wolf ~8 ~ ~9
+summon fox ~-1 ~ ~4
+effect give @e[type=!player] fire_resistance 1000 0 true
+effect give @e[type=!player] slowness 1000 9 true
+tp ~ ~ ~-3
+look 0 -8
+wait 50
+hud off
+clearchat
+screenshot gh51_mobs
+killall
+# ---- scene 2: the texture wall (3 rows of 12 blocks)
+hud on
+setblock ~-6 ~ ~8 stone
+setblock ~-5 ~ ~8 cobblestone
+setblock ~-4 ~ ~8 dirt
+setblock ~-3 ~ ~8 grass_block
+setblock ~-2 ~ ~8 sand
+setblock ~-1 ~ ~8 gravel
+setblock ~0 ~ ~8 oak_planks
+setblock ~1 ~ ~8 spruce_planks
+setblock ~2 ~ ~8 oak_log
+setblock ~3 ~ ~8 birch_log
+setblock ~4 ~ ~8 oak_leaves
+setblock ~5 ~ ~8 bricks
+setblock ~-6 ~1 ~8 coal_ore
+setblock ~-5 ~1 ~8 iron_ore
+setblock ~-4 ~1 ~8 gold_ore
+setblock ~-3 ~1 ~8 diamond_ore
+setblock ~-2 ~1 ~8 redstone_ore
+setblock ~-1 ~1 ~8 lapis_ore
+setblock ~0 ~1 ~8 emerald_ore
+setblock ~1 ~1 ~8 deepslate
+setblock ~2 ~1 ~8 deepslate_iron_ore
+setblock ~3 ~1 ~8 netherrack
+setblock ~4 ~1 ~8 obsidian
+setblock ~5 ~1 ~8 snow_block
+setblock ~-6 ~2 ~8 white_wool
+setblock ~-5 ~2 ~8 red_wool
+setblock ~-4 ~2 ~8 blue_wool
+setblock ~-3 ~2 ~8 green_wool
+setblock ~-2 ~2 ~8 yellow_wool
+setblock ~-1 ~2 ~8 glass
+setblock ~0 ~2 ~8 stone_bricks
+setblock ~1 ~2 ~8 sandstone
+setblock ~2 ~2 ~8 bookshelf
+setblock ~3 ~2 ~8 crafting_table
+setblock ~4 ~2 ~8 furnace
+setblock ~5 ~2 ~8 tnt
+tp ~ ~ ~1
+look 0 -4
+wait 20
+hud off
+clearchat
+screenshot gh51_textures
+# ---- scene 3: a stream of water spreads over flat ground into a lava lake: obsidian, cobblestone and steam
+hud on
+tp ~60 ~30 ~0
+waitready
+wait 60
+flatten 20
+wait 60
+time set 11200
+fill ~-3 ~-1 ~7 ~3 ~-1 ~12 lava
+setblock ~0 ~ ~16 water
+tp ~ ~4 ~2
+look 0 -32
+wait 420
+hud off
+clearchat
+screenshot gh51_fluids
+# ---- scene 4: sand, gravel, red sand and an anvil in free fall
+hud on
+tp ~60 ~30 ~0
+waitready
+wait 60
+flatten 20
+wait 60
+time set 3000
+setblock ~-3 ~12 ~9 sand
+setblock ~-1 ~13 ~9 gravel
+setblock ~1 ~11 ~9 anvil
+setblock ~3 ~14 ~9 red_sand
+setblock ~0 ~16 ~9 sand
+tp ~ ~ ~-2
+look 0 12
+wait 22
+hud off
+clearchat
+screenshot gh51_falling
+quit

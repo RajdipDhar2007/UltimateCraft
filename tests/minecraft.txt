@@ -1,0 +1,102 @@
+newworld McTest 4242 0
+waitready
+killall
+time set noon
+flatten 12
+wait 5
+# ---- world height: y is Minecraft y (sea level 63), the world runs -64..319
+check y > 127
+setblock ~2 ~0 ~0 stone
+check is ~2,~0,~0:stone == 1
+tp ~ 310 ~
+wait 2
+check y > 373
+tp ~ 80 ~
+wait 60
+# ---- game rules
+gamerule doDaylightCycle false
+time set 6000
+wait 30
+check time == 18000
+gamerule doDaylightCycle true
+gamerule keepInventory true
+gamerule randomTickSpeed 10
+gamerule doMobSpawning false
+gamerule nonexistentRule true
+# ---- difficulty & game modes
+difficulty hard
+gamemode adventure
+check gamemode == 2
+gamemode spectator
+check gamemode == 3
+gamemode survival
+check gamemode == 0
+difficulty peaceful
+summon zombie ~4 ~ ~
+wait 30
+check mob zombie == 0
+difficulty normal
+# ---- selectors, /fill, /clone, /kill, /tag, /execute
+fill ~3 ~0 ~3 ~5 ~2 ~5 oak_planks
+check is ~4,~1,~4:oak_planks == 1
+fill ~3 ~0 ~3 ~5 ~2 ~5 glass hollow
+check is ~4,~1,~4:air == 1
+check is ~3,~1,~4:glass == 1
+clone ~3 ~0 ~3 ~5 ~2 ~5 ~3 ~0 ~-6
+check is ~3,~1,~-5:glass == 1
+kill @e[type=!player]
+wait 30
+summon pig ~2 ~ ~2
+summon pig ~-2 ~ ~2
+summon cow ~0 ~ ~-3
+wait 5
+tag @e[type=cow,distance=..5] add bessie
+tag @e[type=pig,distance=..4] add twins
+check tagged twins == 2
+tag @e[tag=twins,limit=1,sort=nearest] add marked
+kill @e[type=pig,tag=marked]
+wait 30
+check tagged twins == 1
+execute as @e[type=cow] at @s run setblock ~ ~3 ~ gold_block
+execute if entity @e[type=cow] run give @s diamond 2
+check inv diamond == 2
+kill @e[type=!player]
+wait 30
+check tagged bessie == 0
+# ---- give / clear / xp / effect / enchant
+give @p minecraft:iron_sword
+check inv iron_sword == 1
+select 0
+clear @s iron_sword
+check inv iron_sword == 0
+experience add @s 5 levels
+check level == 5
+experience set @s 2 levels
+check level == 2
+effect give @s minecraft:speed 30 1
+check effect speed == 2
+effect clear @s
+check effect speed == 0
+# ---- weather
+weather thunder 1000
+wait 200
+check rain > 0.5
+weather clear
+wait 200
+check rain < 0.5
+# ---- keepInventory
+give @s diamond 3
+kill
+wait 30
+check inv diamond == 5
+# ---- raids: bad omen in a village starts a raid
+gamerule keepInventory false
+raid start
+wait 1200
+check raidwave >= 1
+check raiders > 0
+raid stop
+raid patrol
+wait 5
+check patrol > 0
+quit
