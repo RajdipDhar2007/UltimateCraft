@@ -1,0 +1,34 @@
+# Leaf decay follows Minecraft's rule: a leaf lives only while a log is reachable through connected leaves (<= 6 blocks).
+newworld TreeTest 85 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+flatten 8
+gamemode creative
+gamerule randomTickSpeed 3000
+# a 7x5x7 ball of leaves around a 3-high trunk
+fill ~0 ~1 ~-3 ~6 ~5 ~3 oak_leaves
+fill ~3 ~ ~0 ~3 ~2 ~0 oak_log
+setblock ~3 ~3 ~0 oak_leaves
+wait 400
+# leaf touching the log top and a leaf 6 away along the leaf network survive; the corner (9 away) is gone
+check is ~3,~3,~0:oak_leaves == 1
+check is ~4,~2,~1:oak_leaves == 1
+check is ~0,~5,~3:oak_leaves == 0
+check is ~6,~5,~-3:oak_leaves == 0
+screenshot tree_decay_partial
+# fell the tree: with the trunk gone the rest decays
+fill ~3 ~ ~0 ~3 ~2 ~0 air
+wait 700
+check is ~3,~3,~0:oak_leaves == 0
+check is ~4,~2,~1:oak_leaves == 0
+check is ~2,~3,~-1:oak_leaves == 0
+screenshot tree_decay_done
+# leaves a player places (state 1, "persistent") never decay, natural ones (state 0) with no log do
+setblock ~10 ~2 ~10 oak_leaves:1
+setblock ~12 ~2 ~10 oak_leaves
+wait 600
+check is ~10,~2,~10:oak_leaves:1 == 1
+check is ~12,~2,~10:oak_leaves == 0
+quit

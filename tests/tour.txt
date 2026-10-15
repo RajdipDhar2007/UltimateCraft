@@ -1,0 +1,217 @@
+# visual tour of biomes, dimensions and UI (screenshots in screenshots/tour_*)
+newworld TourTest 1337 1
+waitready
+wait 10
+hud
+time set noon
+locate biome plains tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_plains
+locate biome cherry_grove tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_cherry_grove
+locate biome desert tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_desert
+locate biome badlands tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_badlands
+locate biome jungle tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_jungle
+locate biome bamboo_jungle tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_bamboo_jungle
+locate biome dark_forest tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_dark_forest
+locate biome pale_garden tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_pale_garden
+locate biome swamp tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_swamp
+locate biome mangrove_swamp tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_mangrove_swamp
+locate biome savanna tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_savanna
+locate biome snowy_taiga tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_snowy_taiga
+locate biome ice_spikes tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_ice_spikes
+locate biome old_growth_spruce_taiga tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_old_growth_spruce_taiga
+locate biome meadow tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_meadow
+locate biome birch_forest tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_birch_forest
+locate biome flower_forest tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_flower_forest
+locate biome stony_peaks tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_stony_peaks
+locate biome jagged_peaks tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_jagged_peaks
+locate biome warm_ocean tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_warm_ocean
+locate biome mushroom_fields tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_mushroom_fields
+locate biome eroded_badlands tp
+waitready
+wait 90
+look 30 -12
+wait 20
+screenshot tour_eroded_badlands
+time set noon
+dimension nether
+waitready
+wait 120
+locate biome nether_wastes tp
+waitready
+wait 90
+look 30 -15
+wait 20
+screenshot tour_nether_wastes
+locate biome crimson_forest tp
+waitready
+wait 90
+look 30 -15
+wait 20
+screenshot tour_crimson_forest
+locate biome warped_forest tp
+waitready
+wait 90
+look 30 -15
+wait 20
+screenshot tour_warped_forest
+locate biome soul_sand_valley tp
+waitready
+wait 90
+look 30 -15
+wait 20
+screenshot tour_soul_sand_valley
+locate biome basalt_deltas tp
+waitready
+wait 90
+look 30 -15
+wait 20
+screenshot tour_basalt_deltas
+dimension end
+waitready
+wait 120
+look -90 5
+wait 30
+screenshot tour_the_end
+dimension overworld
+waitready
+wait 30
+hud
+clear
+screen inventory
+creativetab 0
+wait 5
+screenshot tour_creative_building
+creativetab 2
+wait 5
+screenshot tour_creative_natural
+creativetab 9
+wait 5
+screenshot tour_creative_eggs
+search stairs
+wait 5
+screenshot tour_creative_search
+screen close
+gamemode survival
+give oak_planks 3
+give stick 2
+screen crafting
+grid 0 oak_planks
+grid 1 oak_planks
+grid 2 oak_planks
+grid 4 stick
+grid 7 stick
+wait 5
+screenshot tour_crafting_pickaxe
+screen close
+clear
+give stone 16
+screen stonecutter
+grid 0 stone 16
+wait 5
+screenshot tour_stonecutter
+screen close
+quit

@@ -1,0 +1,7 @@
+{
+  // Use .vscode/c_cpp_properties.json (MSYS2 UCRT64 gcc) for IntelliSense instead of the
+  // MSVC config CMake Tools derives from build/ (configured with Visual Studio, which has no pthread.h).
+  "C_Cpp.default.configurationProvider": "",
+  "cmake.generator": "MinGW Makefiles",
+  "cmake.buildDirectory": "${workspaceFolder}/build-ucrt64"
+}

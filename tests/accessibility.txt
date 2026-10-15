@@ -1,0 +1,28 @@
+# Accessibility: subtitles (captions with direction), colour-blind palette, high contrast, narration hook.
+newworld AccTest 91 0
+waitready
+killall
+gamerule doMobSpawning false
+flatten 4
+gamemode survival
+setting subtitles 1
+setting narrator 1
+check captions == 0
+summon lightning_bolt ~6 ~ ~
+damage @s 1 generic
+wait 20
+check captions >= 2
+title @s title {"text":"Hello"}
+say narrated line
+screenshot subtitles
+setting colorblind 1
+setting high_contrast 1
+check cbcolor >= 150
+wait 5
+screenshot high_contrast
+setting colorblind 0
+check cbcolor < 100
+setting high_contrast 0
+setting subtitles 0
+setting narrator 0
+quit

@@ -1,0 +1,44 @@
+# Fluids behave like the real thing: currents carry items and the player, water meets lava, lava lights fires.
+newworld FluidTest 91 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+gamemode creative
+tp 0.5 120 0.5
+waitready
+wait 40
+flatten 12
+wait 40
+check onground == 1
+# --- a water source floods the flat ground: sources stay, flow gets weaker with distance
+setblock ~-6 ~ ~ water
+wait 200
+check is ~-6,~,~:water == 1
+check fluid ~-5,~,~ == 1
+check fluid ~-1,~,~ == 1
+check fluid ~3,~,~ == 0
+# --- a dropped item drifts downstream (away from the source); it starts at x = -3.5 and is pushed east
+summon item ~-4 ~1 ~5
+wait 10
+screenshot fluid_flow_a
+wait 150
+check items >= 1
+# an unpushed item would still sit at exactly x = -3.5
+check itemx > -3.2
+# --- standing in the current pushes the player along it
+check x > 0.9
+# --- lava next to water cools into stone, obsidian and cobblestone
+setblock ~4 ~ ~6 lava
+setblock ~5 ~ ~6 water
+wait 200
+check is ~4,~,~6:lava == 0
+# --- lava sets adjacent wood alight (random ticks)
+gamerule randomTickSpeed 3000
+setblock ~8 ~ ~-8 lava
+setblock ~9 ~ ~-8 oak_planks
+setblock ~9 ~ ~-9 oak_planks
+setblock ~8 ~ ~-9 oak_planks
+wait 150
+check near fire,10 >= 1
+quit

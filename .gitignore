@@ -1,0 +1,29 @@
+# build output
+/build/
+/build-*/
+/ultimatecraft
+/ultimatecraft.exe
+/ultimatecraft-console.exe
+/uc_asan
+build_asan/
+dist/
+*.o
+*.tar.gz
+*.zip
+
+# per-player data and runtime output
+/saves/
+/screenshots/
+backups/
+exports/
+imports/
+latest.log
+crash.log
+settings.txt
+
+# misc
+__pycache__/
+*.tmp
+.claude/
+.DS_Store
+Thumbs.db

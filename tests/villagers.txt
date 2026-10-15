@@ -1,0 +1,40 @@
+# Villager day plan (work at the job site, meet at the bell, sleep in a bed at night), gossip and reputation
+# (hurting a villager lowers it for every villager nearby, refusing trades and angering golems at low levels),
+# reputation saved with the world, and the clouds setting.
+newworld VilTest 89 0
+waitready
+killall
+gamerule doMobSpawning false
+gamerule doDaylightCycle false
+flatten 8
+gamemode creative
+setblock ~6 ~ ~ white_bed:0
+setblock ~6 ~ ~-1 white_bed:1
+setblock ~-6 ~ ~ bell
+summon villager ~3 ~ ~3
+summon villager ~-3 ~ ~-3
+# night: villagers walk to the bed and sleep
+time set 13000
+wait 900
+check sleeping >= 1
+# hurting a villager: it and its neighbours think less of you
+time set 1000
+damage @e[type=villager,limit=1] 1 player_attack by @s
+damage @e[type=villager,limit=1] 1 player_attack by @s
+damage @e[type=villager,limit=1] 1 player_attack by @s
+check minrep <= -15
+check villagerrep < 0
+gamemode survival
+effect give @s resistance 100000 4 true
+summon iron_golem ~ ~ ~6
+wait 60
+check golemangry >= 1
+kill @e[type=iron_golem]
+gamemode creative
+# reputation is saved with the world
+save
+loadworld VilTest
+waitready
+wait 10
+check minrep <= -15
+quit

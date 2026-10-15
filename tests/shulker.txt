@@ -1,0 +1,30 @@
+newworld BoxTest 5 0
+waitready
+killall
+time set noon
+flatten 8
+wait 5
+clear
+# ---- a shulker box keeps its items when broken and gives them back when placed
+setblock ~2 ~0 ~0 shulker_box
+wait 2
+fillbe ~2 ~0 ~0 diamond*5
+fillbe ~2 ~0 ~0 emerald*7
+check beitems ~2,~0,~0 == 12
+dig ~2 ~0 ~0
+wait 20
+tp ~2 ~0 ~0
+wait 60
+check inv shulker_box == 1
+check inv diamond == 0
+check items == 0
+look 0 -50
+wait 2
+mouse 1 1
+wait 2
+mouse 1 0
+wait 5
+check inv shulker_box == 0
+check shulkerplaced == 12
+save
+quit

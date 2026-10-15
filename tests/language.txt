@@ -1,0 +1,16 @@
+# Localisation: switching to German translates the menus; English is restored afterwards.
+newworld LangTest 92 0
+waitready
+check langindex == 0
+check translated == 0
+setting language de_de
+check langindex == 1
+check translated == 1
+screen pause
+wait 5
+screenshot lang_de_pause
+screen close
+setting language en_us
+check langindex == 0
+check translated == 0
+quit

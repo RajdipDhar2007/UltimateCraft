@@ -1,0 +1,45 @@
+UltimateCraft Source-Available Licence, version 1.0
+Copyright (c) 2026 RajdipDhar2007. All rights reserved.
+
+This licence covers the UltimateCraft source code, build scripts, tools, generated content, documentation,
+images and every other file in this repository ("the Software"), except (a) the third-party libraries in lib/,
+which stay under their own licences (see THIRD_PARTY_LICENSES.md), and (b) the sound recordings in
+tools/audio_src/ and the Ogg Vorbis files in res/audio/ made from them, which stay under the licences of their
+original authors (public domain, CC0 or CC BY; see tools/audio_src/CREDITS.md).
+
+1. Permitted use. You may, free of charge:
+   a. view and study the source code;
+   b. download, compile and run the Software for your own personal, non-commercial use;
+   c. modify your own copy and create data packs, language files, mods and other add-ons for it;
+   d. share your own data packs, language files, worlds, mods and patches (but not copies of the Software itself);
+   e. publish screenshots, videos and live streams of the Software, including monetised ones;
+   f. fork this repository on GitHub and open pull requests; contributions are accepted under the terms in
+      section 4.
+
+2. Restrictions. Without prior written permission from the copyright holder you may not:
+   a. sell, rent, sublicense or otherwise distribute the Software, compiled builds of it, or substantial
+      parts of its source code, whether modified or not;
+   b. publish the Software or a derivative game on any store or distribution platform (for example Steam,
+      itch.io, Epic Games Store, Microsoft Store, Google Play, the App Store);
+   c. use the name "UltimateCraft", its logo or its characters to promote another product;
+   d. remove or change copyright notices, this licence or the third-party notices.
+
+3. Ownership. The Software is licensed, not sold. All rights not expressly granted here are reserved by the
+   copyright holder. Players of official builds are also bound by EULA.md.
+
+4. Contributions. By submitting a contribution (a pull request, patch, issue attachment or similar) you grant
+   the copyright holder a perpetual, worldwide, royalty-free, irrevocable licence to use, modify, sublicense and
+   distribute it as part of the Software, including commercially, and you confirm that you have the right to do so.
+
+5. No warranty. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+   IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+   ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+6. Termination. This licence ends automatically if you break its terms. On termination you must stop
+   distributing anything covered by section 2 and delete copies obtained in breach of it.
+
+7. Independence. UltimateCraft is an independent project. It is not affiliated with, endorsed by or
+   sponsored by Mojang Studios or Microsoft, and contains none of their code, art, sounds or data.
+
+For commercial licensing or other permissions, contact the copyright holder through the project's GitHub page.

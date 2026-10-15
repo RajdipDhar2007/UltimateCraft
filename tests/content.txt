@@ -1,0 +1,88 @@
+# content coverage: items, recipes, biomes, mobs, dimensions
+newworld ContentTest 4242 1
+waitready
+wait 10
+check itemtypes == 1539
+check recipes >= 1000
+check recipes_ok == 1036
+check biomes_found 6000 >= 40
+# ---- every mob spawns, ticks and renders
+time set noon
+flatten 24
+tp ~ ~ ~-20
+look 0 -5
+gallery 0 50 4
+wait 60
+check mob happy_ghast >= 1
+check mob cow >= 1
+freeze
+wait 5
+screenshot content_gallery_1
+freeze
+killall
+gallery 50 50 4
+wait 60
+freeze
+wait 5
+screenshot content_gallery_2
+check mob zombie >= 1
+check mob warden >= 1
+freeze
+killall
+# ---- bosses
+summon wither 1 12
+wait 30
+check mob wither == 1
+screenshot content_wither
+killall
+# ---- block states: stairs/door/fence/slab placement through commands
+setblock ~2 ~ ~3 oak_stairs:2
+setblock ~3 ~ ~3 oak_fence
+setblock ~4 ~ ~3 oak_fence
+setblock ~5 ~ ~3 cobblestone_wall
+setblock ~6 ~ ~3 stone_slab:1
+setblock ~7 ~ ~3 glass_pane
+setblock ~8 ~ ~3 glass_pane
+setblock ~1 ~ ~3 red_bed
+setblock ~0 ~ ~3 lantern
+setblock ~-1 ~ ~3 anvil
+setblock ~-2 ~ ~3 brewing_stand
+setblock ~-3 ~ ~3 wheat_crop:7
+setblock ~-4 ~ ~3 chest
+tp ~ ~2 ~-3
+look 0 -25
+wait 10
+screenshot content_blocks
+# ---- dimensions
+dimension nether
+waitready
+wait 30
+check dim == 1
+look 30 -10
+wait 30
+screenshot content_nether
+dimension end
+waitready
+wait 60
+check dim == 2
+check mob cosmic_tyrant == 1
+screenshot content_end
+dimension overworld
+waitready
+wait 10
+check dim == 0
+# ---- biome locator
+locate biome badlands tp
+waitready
+wait 30
+check biome == 26
+screenshot content_badlands
+locate biome jungle tp
+waitready
+wait 30
+screenshot content_jungle
+locate biome ice_spikes tp
+waitready
+wait 30
+screenshot content_icespikes
+quit

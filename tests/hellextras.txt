@@ -1,0 +1,111 @@
+# Hell extras: ghost variants per biome, holy water, the blessed sword, soul lanterns, ectoplasm items
+# (Tonic of Ghost Sight, Phasing Pearl), ambience, and the Brimstone Revenant in its fortress arena.
+newworld HellExtras 4321 0
+waitready
+killall
+time set noon
+gamerule doMobSpawning false
+dimension hell
+waitready
+wait 30
+check dim == 1
+fill ~-9 ~-1 ~-9 ~9 ~6 ~9 netherrack
+fill ~-8 ~0 ~-8 ~8 ~5 ~8 air
+wait 10
+killall
+gamemode creative
+summon ember_wraith ~4 ~1 ~
+summon fungal_shade ~-4 ~1 ~
+summon cinder_specter ~ ~1 ~4
+wait 20
+check mob ember_wraith == 1
+check mob fungal_shade == 1
+check mob cinder_specter == 1
+check mobhp ember_wraith == 20
+check hellsounds >= 0
+screenshot hell_variants
+# holy water splashes: 8 damage to every ghost in reach
+killall
+summon ember_wraith ~2 ~ ~
+clear
+give holy_water 4
+select 0
+look 90 -60
+useitem
+wait 40
+check holysplashes >= 1
+check mobhp ember_wraith <= 12
+# the blessed sword is holy (double damage on ghosts)
+kill @e[type=ember_wraith]
+wait 5
+clear
+give blessed_sword
+select 0
+summon fungal_shade ~2 ~1 ~
+wait 2
+damage @e[type=fungal_shade,limit=1] 4 player_attack by @s
+wait 5
+check mobhp fungal_shade == 10
+kill @e[type=fungal_shade]
+# a held soul lantern keeps a hunting ghost away (and sears it)
+gamemode survival
+heal
+clear
+give soul_lantern
+select 0
+summon cinder_specter ~4 ~1 ~
+wait 400
+check ghostrepels >= 1
+check health == 20
+check effect haunted == 0
+kill @e[type=cinder_specter]
+# Tonic of Ghost Sight: ghosts close by glow
+gamemode creative
+clear
+give ghost_sight_tonic
+select 0
+useitem
+wait 5
+check effect ghost_sight >= 1
+summon ghost ~5 ~1 ~
+wait 10
+check glowghosts >= 1
+kill @e[type=ghost]
+# Phasing Pearl: step through a 2-thick wall (survival: the pearl is used up)
+gamemode survival
+heal
+clear
+fill ~2 ~ ~-1 ~3 ~2 ~1 stone
+give phasing_pearl
+select 0
+look 90 0
+useitem
+wait 5
+check pearlphases == 1
+check inv phasing_pearl == 0
+wait 1500
+check hellsounds >= 1
+# the Brimstone Revenant waits where the fortress bridges cross
+locate fortress tp
+waitready
+wait 60
+check mob brimstone_revenant == 1
+check near soul_fire,12 >= 1
+screenshot hell_revenant_arena
+gamemode survival
+heal
+effect give @s resistance 100000 4 true
+effect give @s fire_resistance 100000 0 true
+wait 600
+check revenantnovas >= 1
+check bossmax == 220
+damage @e[type=brimstone_revenant,limit=1] 120 magic
+wait 30
+check bossphase == 2
+check dead == 0
+gamemode creative
+damage @e[type=brimstone_revenant,limit=1] 2000 magic
+wait 60
+check mob brimstone_revenant == 0
+check have brimstone_heart >= 1
+quit

@@ -1,0 +1,51 @@
+# Controller support through a virtual gamepad: left stick walks (and stops), B sneaks, RB changes the hotbar slot,
+# RT attacks, Start opens the menu.
+newworld PadTest 93 0
+waitready
+killall
+gamerule doMobSpawning false
+flatten 6
+gamemode survival
+tp 0 ~ 0
+look 0 0
+gamepad axis 1 -1.0
+wait 40
+check padframes >= 1
+check z >= 2
+gamepad axis 1 0
+wait 20
+tp 0 ~ 0
+wait 30
+check z < 1
+gamepad button 1 1
+wait 5
+check sneaking == 1
+gamepad button 1 0
+wait 5
+check sneaking == 0
+check selected == 0
+gamepad button 5 1
+wait 2
+gamepad button 5 0
+wait 2
+check selected == 1
+check lmb == 0
+gamepad axis 5 1.0
+wait 3
+check lmb == 1
+gamepad axis 5 -1.0
+wait 3
+check lmb == 0
+gamepad axis 4 1.0
+wait 3
+check rmb == 1
+gamepad axis 4 -1.0
+wait 3
+check rmb == 0
+gamepad button 7 1
+wait 2
+gamepad button 7 0
+wait 2
+check screen > 0
+gamepad off
+quit

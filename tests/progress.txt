@@ -1,0 +1,47 @@
+# Statistics and advancements: polled advancements, event advancements, /advancement, persistence, screens.
+newworld ProgTest 85 0
+waitready
+killall
+gamerule doMobSpawning false
+flatten 6
+gamemode survival
+clear
+give oak_log
+wait 70
+check advdone first_log == 1
+give cobblestone
+give stone_pickaxe
+wait 70
+check advdone stone_age == 1
+check advdone stone_tools == 1
+summon zombie ~2 ~ ~
+damage @e[type=zombie,limit=1] 100 player_attack by @s
+wait 30
+check stat mobs >= 1
+check stat damage >= 20
+check advdone monster == 1
+advancement grant tyrant
+check advdone tyrant == 1
+advancement revoke tyrant
+check advdone tyrant == 0
+dimension hell
+waitready
+wait 70
+check advdone hell == 1
+check advcount >= 5
+advancements
+wait 5
+screenshot advancements
+screen close
+statistics
+wait 5
+screenshot statistics
+screen close
+save
+loadworld ProgTest
+waitready
+wait 10
+check advdone hell == 1
+check advcount >= 5
+check stat mobs >= 1
+quit

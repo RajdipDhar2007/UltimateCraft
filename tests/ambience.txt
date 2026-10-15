@@ -1,0 +1,23 @@
+# Ambience: rain sounds (quieter under a roof), thunder after lightning, cave ambience deep underground,
+# biome-tinted skies (screenshots).
+newworld AmbTest 87 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+weather rain
+wait 240
+check ambient >= 1
+weather thunder
+summon lightning_bolt ~10 ~ ~
+wait 120
+check ambient >= 3
+weather clear
+screenshot sky_biome
+# deep underground in the dark: the cave ambience plays now and then
+fill ~-2 ~-40 ~-2 ~2 ~-36 ~2 air
+tp ~ ~-40 ~
+time set midnight
+wait 120
+check cavemood == 1
+quit

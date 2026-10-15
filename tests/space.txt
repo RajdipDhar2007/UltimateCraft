@@ -1,0 +1,97 @@
+# Space: Void Drifter / Asteroid Crawler, oxygen canisters and blooms, and the ultimate boss
+# Zorvath, the Cosmic Tyrant (3 phases, titles, gravity pulls, minions, meteors, save/load mid-fight,
+# difficulty scaling, death -> Sift Key + crown + Sift gateway).
+newworld SpaceTest 777 0
+waitready
+killall
+gamerule doMobSpawning false
+difficulty normal
+dimension space
+waitready
+wait 30
+check dim == 2
+# arriving in Space wakes the boss over the central island (it stays dormant while you are far away)
+check mob cosmic_tyrant == 1
+check bossphase == 0
+check bossmax == 600
+# ---- space mobs
+gamemode creative
+summon void_drifter ~3 ~2 ~
+summon asteroid_crawler ~-3 ~1 ~
+wait 20
+check mob void_drifter == 1
+check mob asteroid_crawler == 1
+kill @e[type=void_drifter]
+kill @e[type=asteroid_crawler]
+# ---- oxygen: canister gives the Oxygen effect; without it air drains; an Oxygen Bloom refills it
+gamemode survival
+heal
+clear
+give oxygen_canister 2
+select 0
+useitem
+wait 5
+check effect oxygen >= 1
+check inv oxygen_canister == 1
+effect clear @s
+wait 100
+check air < 800
+setblock ~1 ~ ~ oxygen_bloom
+wait 60
+check air >= 820
+setblock ~1 ~ ~ air
+screenshot space_platform
+# ---- the fight
+gamemode creative
+effect give @s oxygen 100000 0 true
+tp @e[type=cosmic_tyrant] ~ ~12 ~-14
+wait 20
+check bossphase == 1
+check title == 1
+screenshot space_tyrant
+damage @e[type=cosmic_tyrant,limit=1] 210 generic
+wait 20
+check bossphase == 2
+# save and reload in the middle of the fight
+save
+loadworld SpaceTest
+waitready
+wait 30
+check dim == 2
+check mob cosmic_tyrant == 1
+check bossphase == 2
+check mobhp cosmic_tyrant <= 390
+check bossmax == 600
+# phase II: gravity pulls and minions (survive with resistance + oxygen)
+gamemode survival
+heal
+effect give @s resistance 100000 4 true
+effect give @s oxygen 100000 0 true
+wait 1200
+check tyrantpulls >= 1
+check tyrantsummons >= 1
+check dead == 0
+damage @e[type=cosmic_tyrant,limit=1] 200 generic
+wait 30
+check bossphase == 3
+wait 400
+check meteors >= 1
+check dead == 0
+screenshot space_phase3
+# the kill
+gamemode creative
+kill @e[type=void_drifter]
+kill @e[type=asteroid_crawler]
+damage @e[type=cosmic_tyrant,limit=1] 2000 player_attack by @s
+wait 450
+check mob cosmic_tyrant == 0
+check tyrantkilled == 1
+check siftgate > 0
+check items >= 2
+# the gateway leads to the Sift
+siftgate
+wait 20
+waitready
+wait 30
+check dim == 3
+quit

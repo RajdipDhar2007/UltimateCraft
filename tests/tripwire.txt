@@ -1,0 +1,41 @@
+# Tripwire: two hooks and a line of string; stepping on it powers both hooks (and a lamp), it resets,
+# breaking it without shears trips it, shears disarm it.
+newworld TripTest 78 0
+waitready
+killall
+gamerule doMobSpawning false
+time set noon
+flatten 8
+gamemode creative
+fill ~3 ~ ~ ~3 ~1 ~ stone
+fill ~3 ~ ~8 ~3 ~1 ~8 stone
+setblock ~3 ~ ~1 tripwire_hook:0
+setblock ~3 ~ ~7 tripwire_hook:2
+fill ~3 ~ ~2 ~3 ~ ~6 tripwire
+setblock ~4 ~ ~1 redstone_lamp
+wait 5
+check hookon ~3,~,~1 == 0
+check hookon ~3,~,~7 == 0
+tp ~3 ~ ~4
+wait 5
+check trips == 1
+check hookon ~-0,~,~-3 == 1
+check hookon ~-0,~,~3 == 1
+check power ~1,~,~-3 == 15
+tp ~-3 ~ ~-4
+wait 60
+check hookon ~3,~,~1 == 0
+# breaking the string by hand snaps it: one more trip
+dig ~3 ~ ~3
+wait 3
+check trips == 2
+wait 60
+# shears disarm the remaining string: walking on it does nothing
+give shears
+select 0
+activate ~3 ~ ~5
+check wirestate ~3,~,~5 == 2
+tp ~3 ~ ~5
+wait 5
+check trips == 2
+quit

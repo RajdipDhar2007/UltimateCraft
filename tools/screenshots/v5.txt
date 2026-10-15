@@ -1,0 +1,136 @@
+# Takes the README screenshots (not part of the test suite):
+#   ./ultimatecraft --script tools/screenshots/v5.txt --no-audio   -> screenshots/gh_*.png
+newworld Gallery 424242 1
+waitready
+gamerule doDaylightCycle false
+gamerule doMobSpawning false
+gamerule doWeatherCycle false
+weather clear
+time set 1500
+tp ~ ~40 ~
+setblock ~ ~-1 ~ glass
+look 135 -34
+wait 300
+hud off
+clearchat
+screenshot gh_overworld
+# ---- a little gallery room: painting, item frame, armour stand
+hud on
+tp ~ ~-40 ~
+flatten 8
+fill ~4 ~ ~-4 ~4 ~4 ~4 oak_planks
+summon painting ~3 ~1 ~
+summon item_frame ~3 ~1 ~3
+give diamond
+select 0
+decoruse item_frame
+summon armor_stand ~2 ~ ~-2
+give diamond_helmet
+select 0
+decoruse armor_stand
+give diamond_chestplate
+select 0
+decoruse armor_stand
+setblock ~1 ~ ~2 umbral_lamp
+time set 6000
+look 90 -5
+wait 20
+hud off
+clearchat
+screenshot gh_gallery
+# ---- the cast: UltimateCraft's own creatures
+hud on
+flatten 14
+killall
+time set 5000
+summon deep_keeper ~0 ~ ~11
+summon god_solenne ~-4 ~1 ~10
+summon god_zephyrine ~4 ~1 ~10
+summon delvari_merchant ~-5 ~ ~6
+summon hollow_sentinel ~-3 ~ ~6
+summon sift_soul ~-1 ~1 ~5
+summon void_drifter ~1 ~2 ~5
+summon enderman ~3 ~ ~6
+summon asteroid_crawler ~5 ~ ~6
+effect give @e[type=!player] slowness 100 9 true
+kill @e[type=item]
+tp ~ ~ ~-2
+look 0 -4
+wait 30
+hud off
+clearchat
+screenshot gh_cast
+kill @e[type=!player]
+# ---- the Underground City
+hud on
+locate underground_city tp
+waitready
+wait 80
+tp ~ ~ ~-26
+look 90 -8
+wait 40
+hud off
+clearchat
+screenshot gh_city_street
+# ---- Hell
+hud on
+dimension hell
+waitready
+wait 40
+fill ~-9 ~-1 ~-9 ~9 ~7 ~9 netherrack
+fill ~-8 ~ ~-8 ~8 ~6 ~8 air
+setblock ~-3 ~ ~6 soul_lantern
+setblock ~3 ~ ~6 soul_fire
+killall
+summon ember_wraith ~-2 ~1 ~4
+summon fungal_shade ~0 ~1 ~5
+summon cinder_specter ~2 ~1 ~4
+summon ghost ~0 ~2 ~7
+look 0 0
+wait 20
+hud off
+clearchat
+screenshot gh_hell_ghosts
+# ---- Space and Zorvath
+hud on
+dimension space
+waitready
+wait 40
+time set 18000
+tp @e[type=cosmic_tyrant] ~ ~3 ~10
+look 0 14
+wait 420
+tp @e[type=cosmic_tyrant] ~ ~3 ~10
+wait 3
+hud off
+clearchat
+screenshot gh_space_tyrant
+hud on
+# ---- the Sift
+dimension sift
+waitready
+wait 40
+locate temple_of_dawn tp
+waitready
+wait 60
+tp ~ ~6 ~-16
+look 0 -12
+wait 30
+hud off
+clearchat
+screenshot gh_sift_temple
+hud on
+locate spire_of_winds tp
+waitready
+wait 60
+tp ~ ~12 ~-30
+look 0 15
+wait 30
+hud off
+clearchat
+screenshot gh_sift_spire
+hud on
+screen title
+wait 10
+screenshot gh_title
+quit

@@ -1,0 +1,47 @@
+# Stability: crash-safe saves (a leftover .tmp is recovered), automatic backups, command fuzzing, loading
+# corrupted saves without crashing.
+newworld SafeTest 86 0
+waitready
+gamemode creative
+setblock ~2 ~ ~ gold_block
+save
+screen title
+wait 5
+loadworld SafeTest
+waitready
+wait 10
+check fileexists backups/SafeTest/1/level.txt == 1
+check is ~2,~,~:gold_block == 1
+# a crash between writing level.txt.tmp and renaming it: the temp copy is used
+save
+screen title
+wait 5
+tmpswap level.txt
+loadworld SafeTest
+waitready
+wait 10
+check dim == 0
+check recovered >= 1
+check is ~2,~,~:gold_block == 1
+# 3000 random commands must not crash the game
+fuzzcommands 3000 1
+fuzzcommands 3000 2
+check fuzzruns >= 4000
+check dead >= 0
+# corrupted copies of the world load without crashing (they may fall back to defaults)
+save
+fuzzsave SafeTest 7
+screen title
+wait 5
+loadworld SafeTest_fuzz
+waitready
+wait 30
+check dim >= 0
+screen title
+wait 5
+fuzzsave SafeTest 8
+loadworld SafeTest_fuzz
+waitready
+wait 30
+check dim >= 0
+quit

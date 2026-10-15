@@ -1,0 +1,15 @@
+# basic smoke test: create a world, look around, screenshot
+newworld SmokeTest 12345 0
+waitready
+wait 30
+check health == 20
+check loaded > 20
+screenshot smoke_spawn
+wait 5
+look 90 -20
+wait 5
+screenshot smoke_look
+press F3
+wait 3
+screenshot smoke_debug
+quit

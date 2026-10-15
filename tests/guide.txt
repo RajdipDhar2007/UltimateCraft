@@ -1,0 +1,22 @@
+# The in-game guide (dimensions and bosses), the UltimateCraft creative tab, and the credits screen.
+newworld GuideTest 5 0
+waitready
+gamemode creative
+check ucitems >= 50
+guide
+wait 5
+check guide == 1
+screenshot guide_page1
+guide 3
+wait 5
+check guide == 1
+screenshot guide_page3
+screen close
+wait 5
+check guide == 0
+credits
+wait 120
+check credits == 1
+screenshot credits
+screen close
+quit

@@ -1,0 +1,11 @@
+newworld HandTest 5 0
+waitready
+time set noon
+look 0 -10
+wait 10
+screenshot hand_empty
+mouse 0 1
+mouse 0 0
+wait 6
+screenshot hand_swing
+quit

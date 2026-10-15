@@ -1,0 +1,16 @@
+# Simulation distance: a mob far outside it is frozen; inside it, it ticks.
+newworld SimTest 94 0
+waitready
+killall
+gamerule doMobSpawning false
+flatten 4
+setting simulation_distance 2
+kill @e[type=pig]
+summon pig ~2 ~ ~
+forceload add ~60 ~
+summon pig ~60 ~ ~
+wait 30
+check frozen >= 1
+check mob pig >= 2
+setting simulation_distance 8
+quit
