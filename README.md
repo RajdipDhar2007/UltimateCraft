@@ -1,5 +1,31 @@
-
 <div align="center">
+
+<img src="docs/images/banner.svg" alt="UltimateCraft - build, explore, survive, ascend - made by RAJDIP DHAR" width="100%">
+
+<img src="docs/images/tagline.svg" alt="Punch a tree. Survive the night. Raid a lost city. Slay a cosmic tyrant. Ascend to the Sift." width="100%">
+
+<br>
+
+<a href="https://github.com/RajdipDhar2007/UltimateCraft/releases/latest"><img src="https://img.shields.io/github/v/release/RajdipDhar2007/UltimateCraft?style=for-the-badge&label=DOWNLOAD%20LATEST&color=ffd84a&labelColor=1b1538&logo=github" alt="Download the latest release"></a>
+<a href="https://github.com/RajdipDhar2007/UltimateCraft/stargazers"><img src="https://img.shields.io/github/stars/RajdipDhar2007/UltimateCraft?style=for-the-badge&logo=github&color=ffd84a&labelColor=1b1538" alt="Stars"></a>
+<a href="https://github.com/RajdipDhar2007/UltimateCraft/releases"><img src="https://img.shields.io/github/downloads/RajdipDhar2007/UltimateCraft/total?style=for-the-badge&color=3fb950&labelColor=1b1538&label=DOWNLOADS" alt="Downloads"></a>
+
+[![version](https://img.shields.io/badge/version-5.1.0-2ea043?style=for-the-badge&logo=github&logoColor=white)](CHANGELOG.md)
+[![C11](https://img.shields.io/badge/C11-OpenGL%203.3-f0883e?style=for-the-badge&logo=c&logoColor=white)](#-building-from-source)
+[![platforms](https://img.shields.io/badge/Windows%20·%20Linux%20·%20macOS-8957e5?style=for-the-badge&logo=windows11&logoColor=white)](#-download-and-play)
+[![tests](https://img.shields.io/badge/tests-45%20scripts%20·%20537%20checks-3fb950?style=for-the-badge&logo=checkmarx&logoColor=white)](#-tests)
+[![sounds](https://img.shields.io/badge/sounds-171%20real%20recordings-ff6b9d?style=for-the-badge&logo=audacity&logoColor=white)](tools/audio_src/CREDITS.md)
+[![license](https://img.shields.io/badge/license-source--available-58a6ff?style=for-the-badge)](LICENSE)
+
+<img src="docs/images/brand.svg" alt="A project by RAJDIP DHAR" width="420">
+
+### The voxel survival sandbox with real animal voices, hand-built physics and its own epic story.
+
+**[📥 Download](#-download-and-play)** &nbsp;·&nbsp; **[🆕 What's new](#-whats-new-in-v510--the-alive-update)** &nbsp;·&nbsp; **[🔧 Requirements](#-system-requirements)** &nbsp;·&nbsp; **[🧭 The journey](#-the-journey)** &nbsp;·&nbsp; **[✨ Features](#-features)** &nbsp;·&nbsp; **[🎮 Controls](#-controls)** &nbsp;·&nbsp; **[🛠 Build](#-building-from-source)** &nbsp;·&nbsp; **[📚 Docs](#-documentation)**
+
+<a href="https://github.com/RajdipDhar2007/UltimateCraft/stargazers"><img src="docs/images/star.svg" alt="Enjoying UltimateCraft? Smash the star - it is the best loot drop a dev can get!" width="100%"></a>
+
+</div>
 
 > 🎮 **Why you'll get hooked:** one more night, one more cave, one more boss. A world that *behaves* (water flows, sand falls, leaves
 > decay), creatures that *sound* real, a story with a real ending — all in an **8 MB executable with no launcher and no internet**.
