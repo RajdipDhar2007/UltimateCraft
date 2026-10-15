@@ -402,3 +402,18 @@ terms, [EULA.md](EULA.md) for players, [PRIVACY.md](PRIVACY.md) (no data is coll
 licences — see [tools/audio_src/CREDITS.md](tools/audio_src/CREDITS.md).
 
 <div align="center">
+
+<img src="docs/images/footer.svg" alt="Made by RAJDIP DHAR" width="100%">
+
+<a href="https://github.com/RajdipDhar2007/UltimateCraft/stargazers"><img src="docs/images/star.svg" alt="Star UltimateCraft on GitHub" width="100%"></a>
+
+### If UltimateCraft made your day, **[⭐ star the repo](https://github.com/RajdipDhar2007/UltimateCraft/stargazers)**, tell a friend, and watch 👀 for the next update. 🚀
+
+<a href="https://github.com/RajdipDhar2007/UltimateCraft/stargazers"><img src="https://api.star-history.com/svg?repos=RajdipDhar2007/UltimateCraft&type=Date" alt="Star history" width="70%"></a>
+
+<img src="docs/images/brand.svg" alt="A project by RAJDIP DHAR" width="420">
+
+<sub>Copyright © 2026 RajdipDhar2007. UltimateCraft is an independent game; it is not affiliated with, endorsed or sponsored by
+Mojang Studios or Microsoft and contains none of their code, art, sounds or data.</sub>
+
+</div>
