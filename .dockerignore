@@ -1,0 +1,9 @@
+.git
+build*
+saves
+backups
+screenshots
+*.exe
+*.tar.gz
+latest.log
+dist
