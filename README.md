@@ -23,8 +23,6 @@
 
 **[📥 Download](#-download-and-play)** &nbsp;·&nbsp; **[🆕 What's new](#-whats-new-in-v510--the-alive-update)** &nbsp;·&nbsp; **[🔧 Requirements](#-system-requirements)** &nbsp;·&nbsp; **[🧭 The journey](#-the-journey)** &nbsp;·&nbsp; **[✨ Features](#-features)** &nbsp;·&nbsp; **[🎮 Controls](#-controls)** &nbsp;·&nbsp; **[🛠 Build](#-building-from-source)** &nbsp;·&nbsp; **[📚 Docs](#-documentation)**
 
-<a href="https://github.com/RajdipDhar2007/UltimateCraft/stargazers"><img src="docs/images/star.svg" alt="Enjoying UltimateCraft? Smash the star - it is the best loot drop a dev can get!" width="100%"></a>
-
 </div>
 
 > 🎮 **Why you'll get hooked:** one more night, one more cave, one more boss. A world that *behaves* (water flows, sand falls, leaves
@@ -182,10 +180,7 @@ Lower the **render distance** in *Options* to trade view range for speed and mem
 
 ## 🧭 The journey
 
-<table>
-<tr>
-<td width="50%"><img src="docs/images/overworld.jpg" alt="Overworld"></td>
-<td>
+<p align="center"><img src="docs/images/overworld.jpg" width="80%" alt="Overworld"></p>
 
 <p align="center"><img src="docs/images/cast.jpg" width="80%" alt="Creatures of UltimateCraft"><br>
 <sub>Some of UltimateCraft's own creatures: Luminaries, the Keeper, souls, sentinels, drifters and crawlers</sub></p>
@@ -409,9 +404,9 @@ licences — see [tools/audio_src/CREDITS.md](tools/audio_src/CREDITS.md).
 
 ### If UltimateCraft made your day, **[⭐ star the repo](https://github.com/RajdipDhar2007/UltimateCraft/stargazers)**, tell a friend, and watch 👀 for the next update. 🚀
 
-<a href="https://github.com/RajdipDhar2007/UltimateCraft/stargazers"><img src="https://api.star-history.com/svg?repos=RajdipDhar2007/UltimateCraft&type=Date" alt="Star history" width="70%"></a>
-
 <img src="docs/images/brand.svg" alt="A project by RAJDIP DHAR" width="420">
+
+**Built with ❤️ by RAJDIP DHAR**
 
 <sub>Copyright © 2026 RajdipDhar2007. UltimateCraft is an independent game; it is not affiliated with, endorsed or sponsored by
 Mojang Studios or Microsoft and contains none of their code, art, sounds or data.</sub>
